@@ -1,0 +1,45 @@
+# ── Python ────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# ── Virtual environment ───────────────────────────
+.venv/
+venv/
+env/
+
+# ── Environment / secrets ─────────────────────────
+.env
+*.env
+
+# ── EasyOCR model cache (large files ~100MB) ──────
+.EasyOCR/
+~/.EasyOCR/
+
+# ── OS junk ───────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── VS Code settings ──────────────────────────────
+.vscode/
+*.code-workspace
+
+# ── Logs ──────────────────────────────────────────
+*.log
+logs/
+
+# ── Docker ────────────────────────────────────────
+docker/data/
+
+# ── Pytest / coverage ─────────────────────────────
+.pytest_cache/
+htmlcov/
+.coverage
+
+# ── Build artifacts ───────────────────────────────
+dist/
+build/
+*.egg-info/

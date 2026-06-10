@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ThreatScan — Universal Spam & Threat Detector</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <circle cx="14" cy="14" r="13" stroke="var(--accent)" stroke-width="1.5"/>
+          <path d="M14 6 L20 11 L20 17 L14 22 L8 17 L8 11 Z" fill="var(--accent)" opacity="0.2"/>
+          <path d="M14 6 L20 11 L20 17 L14 22 L8 17 L8 11 Z" stroke="var(--accent)" stroke-width="1.5" fill="none"/>
+          <circle cx="14" cy="14" r="2.5" fill="var(--accent)"/>
+        </svg>
+        <span class="logo-text">ThreatScan</span>
+      </div>
+      <nav class="header-nav">
+        <a href="#" class="nav-link active">Scanner</a>
+        <a href="#about" class="nav-link">How it works</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">Universal Threat Detection</div>
+      <h1 class="hero-title">Scan before you click, open, or reply.</h1>
+      <p class="hero-sub">Analyse text, images, and URLs for phishing, spam, and malware — instantly, and for free.</p>
+    </div>
+  </section>
+
+  <!-- Scanner card -->
+  <main class="scanner-wrap">
+    <div class="scanner-card" id="scannerCard">
+
+      <!-- Tab bar -->
+      <div class="tab-bar" role="tablist" aria-label="Scan type">
+        <button class="tab active" role="tab" id="tab-text" aria-selected="true" aria-controls="panel-text" data-tab="text">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2" y="3" width="12" height="1.5" rx="0.75" fill="currentColor"/><rect x="2" y="7" width="9" height="1.5" rx="0.75" fill="currentColor"/><rect x="2" y="11" width="11" height="1.5" rx="0.75" fill="currentColor"/></svg>
+          Text / Email
+        </button>
+        <button class="tab" role="tab" id="tab-image" aria-selected="false" aria-controls="panel-image" data-tab="image">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="1" y="2" width="14" height="12" rx="2" stroke="currentColor" stroke-width="1.3"/><circle cx="5.5" cy="6" r="1.5" fill="currentColor" opacity="0.6"/><path d="M1 11 L5 7.5 L8.5 11 L11 8.5 L15 12" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" fill="none"/></svg>
+          Image
+        </button>
+        <button class="tab" role="tab" id="tab-url" aria-selected="false" aria-controls="panel-url" data-tab="url">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6.5 9.5 C7.5 10.5 9.5 10.5 10.5 9.5 L13 7 C14 6 14 4 13 3 C12 2 10 2 9 3 L7.5 4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/><path d="M9.5 6.5 C8.5 5.5 6.5 5.5 5.5 6.5 L3 9 C2 10 2 12 3 13 C4 14 6 14 7 13 L8.5 11.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg>
+          URL
+        </button>
+        <div class="tab-indicator" aria-hidden="true"></div>
+      </div>
+
+      <!-- Panel: Text/Email -->
+      <div class="tab-panel active" id="panel-text" role="tabpanel" aria-labelledby="tab-text">
+        <label class="input-label" for="textInput">Paste text, email body, or message</label>
+        <textarea id="textInput" class="text-input" rows="8"
+          placeholder="Paste the suspicious email, message, or text here…&#10;&#10;Example: Urgent! Your account will be suspended. Click here to verify your identity immediately."></textarea>
+        <div class="input-meta">
+          <span id="charCount" class="char-count">0 / 50,000</span>
+          <button class="btn-clear" id="clearText" aria-label="Clear text">Clear</button>
+        </div>
+        <button class="scan-btn" id="scanTextBtn">
+          <span class="btn-label">Scan for threats</span>
+          <span class="btn-spinner" aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <!-- Panel: Image -->
+      <div class="tab-panel" id="panel-image" role="tabpanel" aria-labelledby="tab-image">
+        <div class="drop-zone" id="dropZone" role="button" tabindex="0" aria-label="Upload image">
+          <div class="drop-inner" id="dropInner">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+              <rect x="4" y="8" width="32" height="24" rx="4" stroke="var(--border)" stroke-width="1.5"/>
+              <circle cx="13" cy="17" r="3" fill="var(--text-muted)" opacity="0.4"/>
+              <path d="M4 26 L13 18 L20 25 L26 20 L36 28" stroke="var(--text-muted)" stroke-width="1.5" stroke-linejoin="round" fill="none" opacity="0.4"/>
+              <path d="M20 36 L20 14 M14 20 L20 14 L26 20" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+            <p class="drop-label">Drop an image here or <span class="drop-link">browse to upload</span></p>
+            <p class="drop-hint">JPEG, PNG, WEBP, GIF · max 10 MB</p>
+          </div>
+          <input type="file" id="imageInput" accept="image/*" class="file-input" aria-label="Choose image file">
+        </div>
+        <div class="image-preview-wrap" id="imagePreviewWrap" hidden>
+          <img id="imagePreview" class="image-preview" alt="Preview of uploaded image">
+          <button class="btn-clear img-remove" id="removeImage" aria-label="Remove image">✕ Remove</button>
+        </div>
+        <button class="scan-btn" id="scanImageBtn" disabled>
+          <span class="btn-label">Scan image</span>
+          <span class="btn-spinner" aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <!-- Panel: URL -->
+      <div class="tab-panel" id="panel-url" role="tabpanel" aria-labelledby="tab-url">
+        <label class="input-label" for="urlInput">Enter a URL to check</label>
+        <div class="url-input-wrap">
+          <span class="url-icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6.5 9.5 C7.5 10.5 9.5 10.5 10.5 9.5 L13 7 C14 6 14 4 13 3 C12 2 10 2 9 3 L7.5 4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/><path d="M9.5 6.5 C8.5 5.5 6.5 5.5 5.5 6.5 L3 9 C2 10 2 12 3 13 C4 14 6 14 7 13 L8.5 11.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg>
+          </span>
+          <input type="url" id="urlInput" class="url-input" placeholder="https://example.com/suspicious-link" autocomplete="off" spellcheck="false">
+        </div>
+        <div class="url-examples">
+          <span class="examples-label">Try an example:</span>
+          <button class="example-chip" data-url="https://google.com">google.com</button>
+          <button class="example-chip" data-url="http://192.168.1.1/login">Private IP</button>
+          <button class="example-chip" data-url="https://bit.ly/3fakelink">Shortener</button>
+        </div>
+        <button class="scan-btn" id="scanUrlBtn">
+          <span class="btn-label">Scan URL</span>
+          <span class="btn-spinner" aria-hidden="true"></span>
+        </button>
+      </div>
+
+    </div><!-- /scanner-card -->
+
+    <!-- Results panel (hidden until scan completes) -->
+    <div class="results-panel" id="resultsPanel" hidden aria-live="polite">
+
+      <!-- Risk meter -->
+      <div class="risk-header">
+        <div class="risk-meter-wrap">
+          <div class="risk-label-row">
+            <span class="risk-level-text" id="riskLevelText">–</span>
+            <span class="risk-score-text" id="riskScoreText">0</span>
+          </div>
+          <div class="risk-track" role="meter" aria-label="Threat score" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="riskTrack">
+            <div class="risk-fill" id="riskFill"></div>
+            <div class="risk-segments" aria-hidden="true">
+              <div class="seg safe"></div>
+              <div class="seg suspicious"></div>
+              <div class="seg dangerous"></div>
+            </div>
+          </div>
+          <div class="risk-ticks" aria-hidden="true">
+            <span>0</span><span>30</span><span>65</span><span>100</span>
+          </div>
+        </div>
+
+        <!-- Summary bubble -->
+        <div class="risk-summary" id="riskSummary"></div>
+      </div>
+
+      <!-- Signals list -->
+      <div class="signals-section" id="signalsSection">
+        <h2 class="signals-heading">Detection signals</h2>
+        <ul class="signals-list" id="signalsList"></ul>
+      </div>
+
+      <!-- Extracted text (image scans) -->
+      <div class="extracted-section" id="extractedSection" hidden>
+        <h2 class="signals-heading">Extracted text (OCR)</h2>
+        <pre class="extracted-text" id="extractedText"></pre>
+      </div>
+
+      <!-- Scan again -->
+      <button class="scan-again-btn" id="scanAgainBtn">← Scan another</button>
+
+    </div><!-- /results-panel -->
+
+  </main>
+
+  <!-- About section -->
+  <section class="about-section" id="about">
+    <div class="about-inner">
+      <h2 class="about-heading">How it works</h2>
+      <div class="about-grid">
+        <div class="about-card">
+          <div class="about-icon about-icon--text" aria-hidden="true">T</div>
+          <h3>Text & Email</h3>
+          <p>Runs 40+ phishing and spam heuristics including urgency language, sender spoofing, credential-harvesting phrases, and suspicious inline links.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-icon about-icon--img" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="1" y="3" width="18" height="14" rx="2.5" stroke="currentColor" stroke-width="1.4"/><circle cx="6.5" cy="8" r="2" fill="currentColor" opacity="0.5"/><path d="M1 14 L6 9 L10.5 14 L14 10.5 L19 15" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" fill="none"/></svg>
+          </div>
+          <h3>Image scanning</h3>
+          <p>OCR extracts text from screenshots and flyers, then runs the same NLP analysis. EXIF metadata is checked for editing software and GPS anomalies.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-icon about-icon--url" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M8 12 C9 13 11 13 12 12 L15.5 8.5 C16.5 7.5 16.5 5.5 15.5 4.5 C14.5 3.5 12.5 3.5 11.5 4.5 L9.5 6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" fill="none"/><path d="M12 8 C11 7 9 7 8 8 L4.5 11.5 C3.5 12.5 3.5 14.5 4.5 15.5 C5.5 16.5 7.5 16.5 8.5 15.5 L10.5 13.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg>
+          </div>
+          <h3>URL analysis</h3>
+          <p>Checks against Google Safe Browsing and VirusTotal, validates SSL, checks domain registration age, detects homoglyph attacks, and blocks SSRF attempts.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <p>ThreatScan — built for educational use. Not a substitute for enterprise security tools.</p>
+  </footer>
+
+  <script src="/js/app.js" defer></script>
+</body>
+</html>
