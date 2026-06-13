@@ -6,15 +6,15 @@
     },
     {
       "source": "/static/(.*)",
-      "destination": "/threatscanner/frontend/css/$1"
+      "destination": "/frontend/css/$1"
     },
     {
       "source": "/js/(.*)",
-      "destination": "/threatscanner/frontend/js/$1"
+      "destination": "/frontend/js/$1"
     },
     {
       "source": "/(.*)",
-      "destination": "/threatscanner/frontend/index.html"
+      "destination": "/frontend/index.html"
     }
   ]
 }

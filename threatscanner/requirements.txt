@@ -1,10 +1,10 @@
-fastapi==0.111.0
-uvicorn[standard]==0.29.0
-python-multipart==0.0.9
-httpx==0.27.0
-pydantic==2.7.1
-python-dotenv==1.0.1
-bleach==6.1.0
-Pillow==10.3.0
-python-whois==0.9.4
-redis==5.0.4
+fastapi>=0.111.0
+uvicorn[standard]>=0.29.0
+python-multipart>=0.0.12
+httpx>=0.27.0
+pydantic>=2.7.1
+python-dotenv>=1.0.1
+bleach>=6.1.0
+Pillow>=10.3.0
+# python-whois==0.9.4 (Disabled for Python 3.13 setup compatibility; optional library)
+redis>=5.0.4
