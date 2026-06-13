@@ -1,6 +1,8 @@
 /* ── ThreatScan — app.js ─────────────────────────────────────────────────── */
 
-const API_BASE = "";   // same origin; change to http://localhost:8000 for dev
+const API_BASE = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+  ? "http://localhost:8000"
+  : "https://threatscanner-backend.onrender.com"; // Replace with your live backend URL (e.g., Render, Railway)
 
 /* ── Tab switching ─────────────────────────────────────────────────────────── */
 const tabs   = document.querySelectorAll(".tab");
