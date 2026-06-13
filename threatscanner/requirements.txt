@@ -6,9 +6,5 @@ pydantic==2.7.1
 python-dotenv==1.0.1
 bleach==6.1.0
 Pillow==10.3.0
-# easyocr==1.7.1 (Disabled for Vercel limits; can be uncommented for local use)
 python-whois==0.9.4
 redis==5.0.4
-
-# Optional — install for SSL checks on older Python builds
-# pyOpenSSL==24.1.0

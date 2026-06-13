@@ -44,7 +44,11 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
 
     async def _check(self, ip: str) -> bool:
         if USE_REDIS and _redis_client:
-            return await _redis_check(ip)
+            try:
+                return await _redis_check(ip)
+            except Exception:
+                # Graceful fallback to in-memory limiting if Redis is unreachable
+                return _memory_check(ip)
         return _memory_check(ip)
 
 
