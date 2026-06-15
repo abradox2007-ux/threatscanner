@@ -1,11 +1,13 @@
 /* ── ThreatScan — app.js ─────────────────────────────────────────────────── */
 
 const API_BASE = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
-  ? "https://threatscanner.onrender.com"
-  : "https://threatscanner-backend.onrender.com"; // Replace with your live backend URL (e.g., Render, Railway)
+  ? "http://localhost:8000"
+  : "https://threatscanner.onrender.com";
+
+
 
 /* ── Tab switching ─────────────────────────────────────────────────────────── */
-const tabs   = document.querySelectorAll(".tab");
+const tabs = document.querySelectorAll(".tab");
 const panels = document.querySelectorAll(".tab-panel");
 
 tabs.forEach(tab => {
@@ -20,9 +22,9 @@ tabs.forEach(tab => {
 });
 
 /* ── Character counter ─────────────────────────────────────────────────────── */
-const textInput  = document.getElementById("textInput");
-const charCount  = document.getElementById("charCount");
-const MAX_CHARS  = 50000;
+const textInput = document.getElementById("textInput");
+const charCount = document.getElementById("charCount");
+const MAX_CHARS = 50000;
 
 textInput.addEventListener("input", () => {
   const len = textInput.value.length;
@@ -37,13 +39,13 @@ document.getElementById("clearText").addEventListener("click", () => {
 });
 
 /* ── Image upload ──────────────────────────────────────────────────────────── */
-const dropZone        = document.getElementById("dropZone");
-const imageInput      = document.getElementById("imageInput");
+const dropZone = document.getElementById("dropZone");
+const imageInput = document.getElementById("imageInput");
 const imagePreviewWrap = document.getElementById("imagePreviewWrap");
-const imagePreview    = document.getElementById("imagePreview");
-const removeImageBtn  = document.getElementById("removeImage");
-const scanImageBtn    = document.getElementById("scanImageBtn");
-let   selectedFile    = null;
+const imagePreview = document.getElementById("imagePreview");
+const removeImageBtn = document.getElementById("removeImage");
+const scanImageBtn = document.getElementById("scanImageBtn");
+let selectedFile = null;
 
 imageInput.addEventListener("change", () => handleFile(imageInput.files[0]));
 
@@ -59,7 +61,7 @@ dropZone.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === "
 function handleFile(file) {
   if (!file) return;
   if (!file.type.startsWith("image/")) { showToast("Please upload an image file."); return; }
-  if (file.size > 10 * 1024 * 1024)   { showToast("File exceeds 10 MB limit."); return; }
+  if (file.size > 10 * 1024 * 1024) { showToast("File exceeds 10 MB limit."); return; }
   selectedFile = file;
   const url = URL.createObjectURL(file);
   imagePreview.src = url;
@@ -158,13 +160,13 @@ function renderResults(data) {
   // Score + level text
   const levelText = document.getElementById("riskLevelText");
   const scoreText = document.getElementById("riskScoreText");
-  const fill      = document.getElementById("riskFill");
-  const track     = document.getElementById("riskTrack");
-  const summary   = document.getElementById("riskSummary");
+  const fill = document.getElementById("riskFill");
+  const track = document.getElementById("riskTrack");
+  const summary = document.getElementById("riskSummary");
 
   const levelLabel = { safe: "Safe", suspicious: "Suspicious", dangerous: "Dangerous" }[data.level] || data.level;
   levelText.textContent = levelLabel;
-  levelText.className   = "risk-level-text " + data.level;
+  levelText.className = "risk-level-text " + data.level;
 
   // Animate score counter
   animateCount(scoreText, 0, data.score, 900);
@@ -172,15 +174,15 @@ function renderResults(data) {
   // Fill bar
   const fillColor = { safe: "var(--safe)", suspicious: "var(--suspicious)", dangerous: "var(--dangerous)" }[data.level];
   fill.style.background = fillColor;
-  fill.style.boxShadow  = `0 0 12px ${fillColor}55`;
+  fill.style.boxShadow = `0 0 12px ${fillColor}55`;
   requestAnimationFrame(() => {
     setTimeout(() => { fill.style.width = data.score + "%"; }, 50);
   });
 
   track.setAttribute("aria-valuenow", data.score);
 
-  summary.textContent  = data.summary;
-  summary.className    = "risk-summary " + data.level;
+  summary.textContent = data.summary;
+  summary.className = "risk-summary " + data.level;
 
   // Signals
   const list = document.getElementById("signalsList");
@@ -204,10 +206,10 @@ function renderResults(data) {
 
   // Extracted text (image scans)
   const extractedSection = document.getElementById("extractedSection");
-  const extractedText    = document.getElementById("extractedText");
+  const extractedText = document.getElementById("extractedText");
   if (data.extracted_text && data.extracted_text.trim()) {
     extractedText.textContent = data.extracted_text;
-    extractedSection.hidden   = false;
+    extractedSection.hidden = false;
   } else {
     extractedSection.hidden = true;
   }
@@ -245,7 +247,7 @@ function animateCount(el, from, to, duration) {
   const start = performance.now();
   const update = (now) => {
     const progress = Math.min((now - start) / duration, 1);
-    const eased    = 1 - Math.pow(1 - progress, 3);
+    const eased = 1 - Math.pow(1 - progress, 3);
     el.textContent = Math.round(from + (to - from) * eased);
     if (progress < 1) requestAnimationFrame(update);
   };
@@ -254,10 +256,10 @@ function animateCount(el, from, to, duration) {
 
 function escapeHtml(str) {
   return String(str)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;");
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
 }
 
 let toastTimer;

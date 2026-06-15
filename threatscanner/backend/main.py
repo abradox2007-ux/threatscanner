@@ -3,6 +3,11 @@ Universal Spam & Threat Detection — FastAPI Backend
 Run: uvicorn backend.main:app --reload --port 8000
 """
 import os
+import sys
+
+# Add the backend directory to Python path so imports like 'routers' and 'middleware' work
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
